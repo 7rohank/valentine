@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Valentine Vault 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine AI Vault 💘</title>
 
 <style>
 *{box-sizing:border-box;font-family:Poppins,sans-serif}
@@ -13,37 +13,32 @@ background:linear-gradient(135deg,#ff9a9e,#fad0c4);
 display:flex;align-items:center;justify-content:center;
 overflow:hidden
 }
-.heart{
-position:absolute;color:rgba(255,0,100,.6);
-font-size:20px;animation:floatUp 8s linear infinite
-}
-@keyframes floatUp{
-0%{transform:translateY(100vh) scale(.5);opacity:0}
-20%{opacity:1}
-100%{transform:translateY(-10vh) scale(1.2);opacity:0}
-}
 .card{
 background:#fff;padding:30px;border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,.2);
-text-align:center;max-width:380px;width:90%;
-animation:fadeIn 1.5s ease;z-index:2
+text-align:center;max-width:420px;width:90%;
 }
-@keyframes fadeIn{
-from{opacity:0;transform:scale(.9)}
-to{opacity:1;transform:scale(1)}
-}
-h1{color:#ff4d6d;margin-bottom:10px}
-p{color:#555;margin-bottom:20px}
+h1{color:#ff4d6d}
+p{color:#555}
 button{
 border:none;padding:12px 22px;border-radius:30px;
-font-size:1rem;cursor:pointer
+font-size:1rem;cursor:pointer;background:#ff4d6d;color:#fff
 }
 input{
 padding:12px;border-radius:25px;border:1px solid #ccc;
 width:80%;text-align:center;font-size:1rem
 }
-#unlockBtn{background:#ff4d6d;color:#fff}
-.message{display:none;animation:fadeIn 1.5s ease}
+.message{display:none;margin-top:20px}
+.scan{display:none;font-weight:bold;color:#ff4d6d}
+.heart{
+position:absolute;color:rgba(255,0,100,.6);
+animation:floatUp 8s linear infinite
+}
+@keyframes floatUp{
+0%{transform:translateY(100vh);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
 .sparkle{
 position:absolute;width:6px;height:6px;
 background:gold;border-radius:50%;
@@ -53,93 +48,127 @@ animation:sparkle 1s ease-out forwards
 from{transform:scale(1);opacity:1}
 to{transform:scale(3);opacity:0}
 }
+.counterBtn{margin-top:15px;background:#222}
 </style>
 </head>
 
 <body>
 
 <div class="card">
-  <h1>Valentine Vault 💘</h1>
-  <p>Enter your phone number to unlock your message 😏</p>
+<h1>AI Valentine Scanner 💘</h1>
+<p>Enter phone number for personality analysis</p>
 
-  <input id="phoneInput" type="tel" placeholder="Enter phone number" />
-  <br><br>
-  <button id="unlockBtn">Unlock 💌</button>
+<input id="phoneInput" type="tel" placeholder="Enter phone number">
+<br><br>
+<button id="unlockBtn">Start Scan</button>
 
-  <div class="message" id="message">
-    <h1 id="nameTitle"></h1>
-    <p id="customText"></p>
-  </div>
+<p class="scan" id="scanText">Analyzing personality...</p>
+
+<div class="message" id="message">
+<h2 id="nameTitle"></h2>
+<p id="customText"></p>
+<div id="extra"></div>
+</div>
 </div>
 
 <script>
 // Floating hearts
 function createHeart(){
-  const h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*20+10)+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💖";
+ h.style.left=Math.random()*100+"vw";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),8000);
 }
-setInterval(createHeart,500);
+setInterval(createHeart,600);
+
+// Compliments for girls
+const compliments=[
+"You bring warmth wherever you go 🌸",
+"Your vibe upgrades every room ✨",
+"Someone’s favorite notification is your message 💖",
+"You have main character energy 💫"
+];
 
 // Data
-const people = {
-  "9559077745": {
-    name: "Adarsh 😈",
-    msg: "If you ever get a girlfriend, hide her from Manan… recruitment already started 💀"
-  },
-  "9152263504": {
-    name: "Manan 🤡",
-    msg: () => {
-      const count = Math.floor(Math.random()*5)+2;
-      return `How many girlfriends today? 📊<br><br><b>${count}</b><br><br>Bro is running a subscription model 💀`;
-    }
-  },
-  "9004435351": {
-    name: "Krishna 🎮",
-    msg: "Your love life is currently between Jassi and your video games… and the controller is still winning 🎮💀"
-  },
-  "9555273643": {
-    name: "Jassi 💕",
-    msg: "You bring warmth wherever you go 🌸 Someone out there is very lucky to have you 💖"
-  },
-  "8017195490": {
-    name: "Debo ✨",
-    msg: "Your vibe alone beats Valentine clichés 🌹 Stay lovely and unstoppable 💫"
-  }
+const people={
+"9559077745":{
+ name:"Adarsh 😈",
+ msg:"Manan already shortlisted your future girlfriend before you even meet her 💀"
+},
+"9152263504":{
+ name:"Manan 🤡",
+ msg:"System error: Too many girlfriends detected.",
+ special:"manan"
+},
+"9004435351":{
+ name:"Krishna 🎮",
+ msg:"Your strongest relationship is still with your video game login streak."
+},
+"9555273643":{
+ name:"Jassi 💕",
+ msg:()=>compliments[Math.floor(Math.random()*compliments.length)]
+},
+"8017195490":{
+ name:"Debo ✨",
+ msg:()=>compliments[Math.floor(Math.random()*compliments.length)]
+}
 };
 
-// Unlock logic
-document.getElementById("unlockBtn").onclick = () => {
-  const phone = document.getElementById("phoneInput").value.trim();
-  const data = people[phone];
+document.getElementById("unlockBtn").onclick=()=>{
+ const phone=document.getElementById("phoneInput").value.trim();
+ const scan=document.getElementById("scanText");
+ const msgBox=document.getElementById("message");
+ const title=document.getElementById("nameTitle");
+ const text=document.getElementById("customText");
+ const extra=document.getElementById("extra");
 
-  const msgBox = document.getElementById("message");
-  const title = document.getElementById("nameTitle");
-  const text = document.getElementById("customText");
+ scan.style.display="block";
+ scan.innerHTML="Scanning love life...";
 
-  if (data) {
-    title.innerHTML = data.name;
-    text.innerHTML = typeof data.msg === "function" ? data.msg() : data.msg;
-  } else {
-    title.innerHTML = "Access Denied 🚫";
-    text.innerHTML = "Nice try 😜 This Valentine vault isn’t for you.";
+ setTimeout(()=>{
+  const data=people[phone];
+  scan.style.display="none";
+  msgBox.style.display="block";
+  extra.innerHTML="";
+
+  if(data){
+   title.innerHTML=data.name;
+   text.innerHTML= typeof data.msg==="function"?data.msg():data.msg;
+
+   // Manan special counter
+   if(data.special==="manan"){
+     let count=3;
+     const btn=document.createElement("button");
+     btn.className="counterBtn";
+     btn.innerText="Add New Girlfriend";
+     const cText=document.createElement("p");
+     cText.innerHTML="Girlfriends today: "+count;
+     btn.onclick=()=>{
+       count++;
+       cText.innerHTML="Girlfriends today: "+count+" 💀";
+     };
+     extra.appendChild(cText);
+     extra.appendChild(btn);
+   }
+
+  }else{
+   title.innerHTML="Access Denied 🚫";
+   text.innerHTML="You are not part of this friend group. Agent detected.";
   }
 
-  msgBox.style.display = "block";
-
-  // Sparkles
-  for(let i=0;i<30;i++){
-    const s=document.createElement("div");
-    s.className="sparkle";
-    s.style.left=Math.random()*innerWidth+"px";
-    s.style.top=Math.random()*innerHeight+"px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1000);
+  // sparkles
+  for(let i=0;i<25;i++){
+   const s=document.createElement("div");
+   s.className="sparkle";
+   s.style.left=Math.random()*innerWidth+"px";
+   s.style.top=Math.random()*innerHeight+"px";
+   document.body.appendChild(s);
+   setTimeout(()=>s.remove(),1000);
   }
+
+ },1500);
 };
 </script>
 
