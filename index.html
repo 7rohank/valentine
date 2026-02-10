@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine AI Vault 💘</title>
+<title>Confidential Love Report 💘</title>
 
 <style>
 *{box-sizing:border-box;font-family:Poppins,sans-serif}
@@ -55,7 +55,7 @@ to{transform:scale(3);opacity:0}
 <body>
 
 <div class="card">
-<h1>AI Valentine Scanner 💘</h1>
+<h1>Valentine Whisper 💘</h1>
 <p>Enter your phone number for analysis 😏</p>
 
 <input id="phoneInput" type="tel" placeholder="Enter phone number">
@@ -83,24 +83,22 @@ function createHeart(){
 }
 setInterval(createHeart,600);
 
-// LOVELY LINES
+// Lovely lines
 const deboLines=[
-"You’re not just special — you’re *more than friends* kind of special 💖",
+"You’re not just special — you’re more than friends kind of special 💖",
 "Some connections don’t need labels… they just feel right ✨",
-"If comfort had a person, it would look a lot like you 🌷",
-"You’re the kind of presence that stays, even when everything else changes 💫",
-"Some people slowly become important… you’re already there 💕"
+"You’re the kind of presence that quietly becomes important 💫",
+"If comfort had a person, it would look like you 🌷"
 ];
 
 const jassiLines=[
 "You’re not just a best friend — you’re a safe place 💛",
 "Every group needs a heart… and that’s you 🌸",
-"Best friends like you make bad days survivable ✨",
-"You bring calm, laughter, and honesty — that’s rare 💖",
-"If friendship had a definition, it would include your name 🌷"
+"Best friends like you make bad days easier ✨",
+"If friendship had a definition, it would include your name 💖"
 ];
 
-// DATA
+// Data
 const people={
 "9559077745":{
  name:"Adarsh 😈",
@@ -134,7 +132,7 @@ document.getElementById("unlockBtn").onclick=()=>{
  const extra=document.getElementById("extra");
 
  scan.style.display="block";
- scan.innerHTML="Scanning love life & emotional depth...";
+ scan.innerHTML="Scanning love life & emotional data...";
 
  setTimeout(()=>{
   const data=people[phone];
@@ -146,7 +144,6 @@ document.getElementById("unlockBtn").onclick=()=>{
    title.innerHTML=data.name;
    text.innerHTML= typeof data.msg==="function"?data.msg():data.msg;
 
-   // Manan special feature
    if(data.special==="manan"){
      let count=3;
      const btn=document.createElement("button");
@@ -167,7 +164,6 @@ document.getElementById("unlockBtn").onclick=()=>{
    text.innerHTML="You are not part of this friend group. Nice try, agent 😜";
   }
 
-  // sparkles
   for(let i=0;i<25;i++){
    const s=document.createElement("div");
    s.className="sparkle";
@@ -183,4 +179,3 @@ document.getElementById("unlockBtn").onclick=()=>{
 
 </body>
 </html>
-
