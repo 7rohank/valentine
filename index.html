@@ -18,7 +18,7 @@ background:#fff;padding:30px;border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,.2);
 text-align:center;max-width:420px;width:90%;
 }
-h1{color:#ff4d6d}
+h1,h2{color:#ff4d6d}
 p{color:#555}
 button{
 border:none;padding:12px 22px;border-radius:30px;
@@ -56,7 +56,7 @@ to{transform:scale(3);opacity:0}
 
 <div class="card">
 <h1>AI Valentine Scanner 💘</h1>
-<p>Enter phone number for personality analysis</p>
+<p>Enter your phone number for analysis 😏</p>
 
 <input id="phoneInput" type="tel" placeholder="Enter phone number">
 <br><br>
@@ -83,15 +83,24 @@ function createHeart(){
 }
 setInterval(createHeart,600);
 
-// Compliments for girls
-const compliments=[
-"You bring warmth wherever you go 🌸",
-"Your vibe upgrades every room ✨",
-"Someone’s favorite notification is your message 💖",
-"You have main character energy 💫"
+// LOVELY LINES
+const deboLines=[
+"You’re not just special — you’re *more than friends* kind of special 💖",
+"Some connections don’t need labels… they just feel right ✨",
+"If comfort had a person, it would look a lot like you 🌷",
+"You’re the kind of presence that stays, even when everything else changes 💫",
+"Some people slowly become important… you’re already there 💕"
 ];
 
-// Data
+const jassiLines=[
+"You’re not just a best friend — you’re a safe place 💛",
+"Every group needs a heart… and that’s you 🌸",
+"Best friends like you make bad days survivable ✨",
+"You bring calm, laughter, and honesty — that’s rare 💖",
+"If friendship had a definition, it would include your name 🌷"
+];
+
+// DATA
 const people={
 "9559077745":{
  name:"Adarsh 😈",
@@ -104,15 +113,15 @@ const people={
 },
 "9004435351":{
  name:"Krishna 🎮",
- msg:"Your strongest relationship is still with your video game login streak."
+ msg:"Your strongest relationship is still with your video game login streak 🎮💀"
 },
 "9555273643":{
  name:"Jassi 💕",
- msg:()=>compliments[Math.floor(Math.random()*compliments.length)]
+ msg:()=>jassiLines[Math.floor(Math.random()*jassiLines.length)]
 },
 "8017195490":{
  name:"Debo ✨",
- msg:()=>compliments[Math.floor(Math.random()*compliments.length)]
+ msg:()=>deboLines[Math.floor(Math.random()*deboLines.length)]
 }
 };
 
@@ -125,7 +134,7 @@ document.getElementById("unlockBtn").onclick=()=>{
  const extra=document.getElementById("extra");
 
  scan.style.display="block";
- scan.innerHTML="Scanning love life...";
+ scan.innerHTML="Scanning love life & emotional depth...";
 
  setTimeout(()=>{
   const data=people[phone];
@@ -137,12 +146,12 @@ document.getElementById("unlockBtn").onclick=()=>{
    title.innerHTML=data.name;
    text.innerHTML= typeof data.msg==="function"?data.msg():data.msg;
 
-   // Manan special counter
+   // Manan special feature
    if(data.special==="manan"){
      let count=3;
      const btn=document.createElement("button");
      btn.className="counterBtn";
-     btn.innerText="Add New Girlfriend";
+     btn.innerText="➕ Add New Girlfriend";
      const cText=document.createElement("p");
      cText.innerHTML="Girlfriends today: "+count;
      btn.onclick=()=>{
@@ -155,7 +164,7 @@ document.getElementById("unlockBtn").onclick=()=>{
 
   }else{
    title.innerHTML="Access Denied 🚫";
-   text.innerHTML="You are not part of this friend group. Agent detected.";
+   text.innerHTML="You are not part of this friend group. Nice try, agent 😜";
   }
 
   // sparkles
