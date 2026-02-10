@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Valentine for Purva 💖</title>
+<title>Valentine Vault 💖</title>
 
 <style>
 *{box-sizing:border-box;font-family:Poppins,sans-serif}
@@ -25,7 +25,7 @@ font-size:20px;animation:floatUp 8s linear infinite
 .card{
 background:#fff;padding:30px;border-radius:20px;
 box-shadow:0 20px 40px rgba(0,0,0,.2);
-text-align:center;max-width:360px;width:90%;
+text-align:center;max-width:380px;width:90%;
 animation:fadeIn 1.5s ease;z-index:2
 }
 @keyframes fadeIn{
@@ -33,15 +33,16 @@ from{opacity:0;transform:scale(.9)}
 to{opacity:1;transform:scale(1)}
 }
 h1{color:#ff4d6d;margin-bottom:10px}
-p{color:#555;margin-bottom:25px}
-.buttons{display:flex;gap:15px;justify-content:center}
+p{color:#555;margin-bottom:20px}
 button{
 border:none;padding:12px 22px;border-radius:30px;
 font-size:1rem;cursor:pointer
 }
-#yesBtn{background:#ff4d6d;color:#fff}
-#yesBtn:hover{transform:scale(1.1)}
-#noBtn{background:#f1f1f1}
+input{
+padding:12px;border-radius:25px;border:1px solid #ccc;
+width:80%;text-align:center;font-size:1rem
+}
+#unlockBtn{background:#ff4d6d;color:#fff}
 .message{display:none;animation:fadeIn 1.5s ease}
 .sparkle{
 position:absolute;width:6px;height:6px;
@@ -52,60 +53,93 @@ animation:sparkle 1s ease-out forwards
 from{transform:scale(1);opacity:1}
 to{transform:scale(3);opacity:0}
 }
-.song-btn{margin-top:20px;background:#ff85a2;color:#fff}
 </style>
 </head>
 
 <body>
 
 <div class="card">
-<h1>Purva, will you be my Valentine? 💖</h1>
-<p>I made this just for you 😊</p>
+  <h1>Valentine Vault 💘</h1>
+  <p>Enter your phone number to unlock your message 😏</p>
 
-<div class="buttons" id="buttons">
-<button id="yesBtn">YES 😍</button>
-<button id="noBtn">NO 😜</button>
-</div>
+  <input id="phoneInput" type="tel" placeholder="Enter phone number" />
+  <br><br>
+  <button id="unlockBtn">Unlock 💌</button>
 
-<div class="message" id="message">
-<h1>Yayyy Purva!! 💕🥰</h1>
-<p>You just made my day ❤️<br>Happy Valentine’s Day 🌹</p>
-<button class="song-btn" id="songBtn">Play our song 🎶</button>
-</div>
+  <div class="message" id="message">
+    <h1 id="nameTitle"></h1>
+    <p id="customText"></p>
+  </div>
 </div>
 
 <script>
+// Floating hearts
 function createHeart(){
-const h=document.createElement("div");
-h.className="heart";h.innerHTML="💖";
-h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(Math.random()*20+10)+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),8000)
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*20+10)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
 }
 setInterval(createHeart,500);
 
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-noBtn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`
-});
-
-const yesBtn=document.getElementById("yesBtn");
-yesBtn.onclick=()=>{
-document.getElementById("buttons").style.display="none";
-document.getElementById("message").style.display="block";
-for(let i=0;i<30;i++){
-const s=document.createElement("div");
-s.className="sparkle";
-s.style.left=Math.random()*innerWidth+"px";
-s.style.top=Math.random()*innerHeight+"px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),1000)
-}
+// Data
+const people = {
+  "9559077745": {
+    name: "Adarsh 😈",
+    msg: "If you ever get a girlfriend, hide her from Manan… recruitment already started 💀"
+  },
+  "9152263504": {
+    name: "Manan 🤡",
+    msg: () => {
+      const count = Math.floor(Math.random()*5)+2;
+      return `How many girlfriends today? 📊<br><br><b>${count}</b><br><br>Bro is running a subscription model 💀`;
+    }
+  },
+  "9004435351": {
+    name: "Krishna 🎮",
+    msg: "Your love life is currently between Jassi and your video games… and the controller is still winning 🎮💀"
+  },
+  "9555273643": {
+    name: "Jassi 💕",
+    msg: "You bring warmth wherever you go 🌸 Someone out there is very lucky to have you 💖"
+  },
+  "8017195490": {
+    name: "Debo ✨",
+    msg: "Your vibe alone beats Valentine clichés 🌹 Stay lovely and unstoppable 💫"
+  }
 };
 
-document.getElementById("songBtn").onclick=()=>{
-window.open("https://www.youtube.com/results?search_query=Raabta+Arijit+Singh","_blank")
+// Unlock logic
+document.getElementById("unlockBtn").onclick = () => {
+  const phone = document.getElementById("phoneInput").value.trim();
+  const data = people[phone];
+
+  const msgBox = document.getElementById("message");
+  const title = document.getElementById("nameTitle");
+  const text = document.getElementById("customText");
+
+  if (data) {
+    title.innerHTML = data.name;
+    text.innerHTML = typeof data.msg === "function" ? data.msg() : data.msg;
+  } else {
+    title.innerHTML = "Access Denied 🚫";
+    text.innerHTML = "Nice try 😜 This Valentine vault isn’t for you.";
+  }
+
+  msgBox.style.display = "block";
+
+  // Sparkles
+  for(let i=0;i<30;i++){
+    const s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=Math.random()*innerWidth+"px";
+    s.style.top=Math.random()*innerHeight+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
 };
 </script>
 
