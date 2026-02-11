@@ -49,6 +49,24 @@ from{transform:scale(1);opacity:1}
 to{transform:scale(3);opacity:0}
 }
 .counterBtn{margin-top:15px;background:#222}
+.extraBox{
+margin-top:14px;
+padding:12px 14px;
+border-radius:14px;
+background:#fff5f7;
+border:1px dashed #ff4d6d;
+text-align:left
+}
+.extraBox h3{margin:0 0 6px 0;color:#ff4d6d;font-size:1rem}
+.badge{
+display:inline-block;
+padding:6px 10px;
+border-radius:999px;
+background:#222;
+color:#fff;
+font-size:.85rem;
+margin:6px 6px 0 0
+}
 </style>
 </head>
 
@@ -65,9 +83,9 @@ to{transform:scale(3);opacity:0}
 <p class="scan" id="scanText">Analyzing personality...</p>
 
 <div class="message" id="message">
-<h2 id="nameTitle"></h2>
-<p id="customText"></p>
-<div id="extra"></div>
+  <h2 id="nameTitle"></h2>
+  <p id="customText"></p>
+  <div id="extra"></div>
 </div>
 </div>
 
@@ -83,44 +101,82 @@ function createHeart(){
 }
 setInterval(createHeart,600);
 
-// Lovely lines
+// Lines (updated: funnier + slightly dark, but safe)
 const deboLines=[
-"You’re not just special — you’re more than friends kind of special 💖",
-"Some connections don’t need labels… they just feel right ✨",
-"You’re the kind of presence that quietly becomes important 💫",
-"If comfort had a person, it would look like you 🌷"
+  "You’re not just special — you’re ‘accidentally became important’ special 💖",
+  "Some connections don’t need labels… they just slowly ruin your sleep schedule ✨",
+  "You’re the kind of presence that turns ‘I’m fine’ into ‘ok tell me everything’ 💫",
+  "If comfort had a person, it would look like you… with premium sarcasm 🌷"
 ];
 
 const jassiLines=[
-"You’re not just a best friend — you’re a safe place 💛",
-"Every group needs a heart… and that’s you 🌸",
-"Best friends like you make bad days easier ✨",
-"If friendship had a definition, it would include your name 💖"
+  "You’re not just a best friend — you’re a safe place 💛",
+  "Every group needs a heart… and that’s you 🌸",
+  "Best friends like you make bad days easier ✨",
+  "If friendship had a definition, it would include your name 💖"
+];
+
+// NEW: Manan roast lines (Goa obsession + supportive friend + dark-ish, safe)
+const mananLines=[
+  "Bro’s love language is ‘Goa’. Goa isn’t a place for him… it’s a personality 🏖️💀",
+  "If Manan had two options — Goa or Goa — he’d still ask ‘Goa which side?’ 😭",
+  "Therapist: ‘What do you want?’ Manan: ‘Goa.’ Therapist: ‘And emotionally?’ Manan: ‘Goa.’ 💀",
+  "He’s supportive though — he’ll hype you up, then leave you on read because ‘network in Goa’ 📶💀",
+  "He’s from Kashmir, so he carries kahwa, shawl, and 17 layers of emotional baggage 🧣☕💀"
+];
+
+// NEW: Adarsh lines (supportive + Nisha bestfriend + party guy)
+const adarshLines=[
+  "Always helpful & supportive — until the party starts, then he becomes ‘seen 2:13 AM’ 🕺💀",
+  "Nisha ka best friend. If loyalty had a face, it would be Adarsh… with party lights 🪩✨",
+  "He’ll help you fix your life, then drag you to a party to break your sleep schedule 😭🎉",
+  "Makes new friends faster than Wi-Fi connects. Introvert’s worst nightmare, best vibe 🫂💀",
+  "He’s the type to say ‘I got you’… and actually mean it (rare species) 🧿✨"
+];
+
+// NEW: Krishna lines (gaming + food vibe + dark-ish)
+const krishnaLines=[
+  "Your strongest relationship is still with your video game login streak 🎮💀",
+  "If loyalty was XP, Krishna would be married to his rank already 😭🎮",
+  "He says ‘one more match’ like it’s a promise. It’s actually a threat 💀",
+  "Food is the only thing that can pull him out of a game… sometimes 🍔🎮",
+  "He’s basically: ‘Eat. Game. Repeat.’ Emotions sold separately 💀"
+];
+
+// NEW: Jassi extra “food and more food” vibe (you asked)
+const jassiFoodLines=[
+  "Jassi’s love story is just: food and more food. Romance? Only if it’s edible 🍕💀",
+  "If you bring food, Jassi will protect you. If you bring more food, you become family 🍔🫂",
+  "Jassi doesn’t chase people… Jassi chases snacks. Priorities ✅🍟",
+  "Happiness is temporary. Food is forever. Jassi knows the truth 💀🍜"
 ];
 
 // Data
 const people={
-"9559077745":{
- name:"Adarsh 😈",
- msg:"Manan already shortlisted your future girlfriend before you even meet her 💀"
-},
-"7006350434":{
- name:"Manan 🤡",
- msg:"System error: Too many girlfriends detected.",
- special:"manan"
-},
-"9004435351":{
- name:"Krishna 🎮",
- msg:"Your strongest relationship is still with your video game login streak 🎮💀"
-},
-"9555273643":{
- name:"Jassi 💕",
- msg:()=>jassiLines[Math.floor(Math.random()*jassiLines.length)]
-},
-"8017195490":{
- name:"Debo ✨",
- msg:()=>deboLines[Math.floor(Math.random()*deboLines.length)]
-}
+  "9559077745":{
+    name:"Adarsh 😈",
+    msg:()=>adarshLines[Math.floor(Math.random()*adarshLines.length)]
+  },
+  "7006350434":{
+    name:"Manan 🤡",
+    msg:()=>mananLines[Math.floor(Math.random()*mananLines.length)],
+    special:"manan"
+  },
+  "9004435351":{
+    name:"Krishna 🎮",
+    msg:()=>krishnaLines[Math.floor(Math.random()*krishnaLines.length)]
+  },
+  "9555273643":{
+    name:"Jassi 💕",
+    msg:()=> (Math.random()<0.55
+      ? jassiFoodLines[Math.floor(Math.random()*jassiFoodLines.length)]
+      : jassiLines[Math.floor(Math.random()*jassiLines.length)]
+    )
+  },
+  "8017195490":{
+    name:"Debo ✨",
+    msg:()=>deboLines[Math.floor(Math.random()*deboLines.length)]
+  }
 };
 
 document.getElementById("unlockBtn").onclick=()=>{
@@ -144,7 +200,19 @@ document.getElementById("unlockBtn").onclick=()=>{
    title.innerHTML=data.name;
    text.innerHTML= typeof data.msg==="function"?data.msg():data.msg;
 
-   if(data.special==="manan"){
+   // Extras per person
+   const box=document.createElement("div");
+   box.className="extraBox";
+
+   if(phone==="7006350434"){ // Manan extras
+     box.innerHTML=`
+       <h3>Manan’s Certified Stats 💀</h3>
+       <div class="badge">Goa Mentions: ∞</div>
+       <div class="badge">Support Level: 8/10</div>
+       <div class="badge">Ghosting Risk: High</div>
+     `;
+     extra.appendChild(box);
+
      let count=3;
      const btn=document.createElement("button");
      btn.className="counterBtn";
@@ -159,11 +227,45 @@ document.getElementById("unlockBtn").onclick=()=>{
      extra.appendChild(btn);
    }
 
+   if(phone==="9559077745"){ // Adarsh extras
+     box.innerHTML=`
+       <h3>Adarsh’s Vibe Report 🎉</h3>
+       <div class="badge">Helpful: 10/10</div>
+       <div class="badge">Party Mode: Always ON</div>
+       <div class="badge">New Friends/Hour: 999+</div>
+       <div style="margin-top:8px;color:#555">
+         Official status: <b>Nisha ka best friend</b> 🧿
+       </div>
+     `;
+     extra.appendChild(box);
+   }
+
+   if(phone==="9004435351"){ // Krishna extras
+     box.innerHTML=`
+       <h3>Krishna’s Daily Routine 🎮</h3>
+       <div class="badge">Gaming: Yes</div>
+       <div class="badge">Touch Grass: No</div>
+       <div class="badge">Food Summon: Effective</div>
+     `;
+     extra.appendChild(box);
+   }
+
+   if(phone==="9555273643"){ // Jassi extras
+     box.innerHTML=`
+       <h3>Jassi’s Priority List 🍔</h3>
+       <div class="badge">Food</div>
+       <div class="badge">More Food</div>
+       <div class="badge">Even More Food</div>
+     `;
+     extra.appendChild(box);
+   }
+
   }else{
    title.innerHTML="Access Denied 🚫";
    text.innerHTML="You are not part of this friend group. Nice try, agent 😜";
   }
 
+  // sparkles
   for(let i=0;i<25;i++){
    const s=document.createElement("div");
    s.className="sparkle";
